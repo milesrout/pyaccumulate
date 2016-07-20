@@ -26,7 +26,7 @@ def foo(*args, **kwds):
 def foo_impl(a, b, c):
   for x in a:
     if pred(x):
-      return baz(x)
+      return (yield baz(x))
     ...
     ...
     yield bar(x)
@@ -39,7 +39,7 @@ I don't find that very aesthetically pleasing. So I wrote this:
 def foo(a, b, c):
   for x in a:
     if pred(x):
-      return baz(x)
+      return (yield baz(x))
     ...
     ...
     yield bar(x)
