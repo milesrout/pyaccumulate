@@ -2,30 +2,30 @@ from pyaccum import accumulate
 
 # ORIGINAL CODE
 
-class Conjunction:
-    def min_gen(self, inst):
-        return [self._min_gen(inst)]
+class A:
+    def foo(self, x):
+        return list(self._foo(x))
     
-    def _min_gen(self, inst):
-        features = []
-        for i in range(len(self)):
-            if self[i] is None:
-                features.append(inst[i])
-            elif is_wildcard(self[i]) or self[i] == inst[i]:
-                features.append(self[i])
+    def _foo(self, x):
+        ys = []
+        for i in range(len(x)):
+            if pred1(x):
+                ys.append(x.bar(i))
+            elif pred2(x):
+                ys.append(x)
             else:
-                features.append(Wildcard)
-        return Conjunction(tuple(features))
+                ys.append(None)
+        return B(ys)
 
 # NEW CODE
 
-class Conjunction:
-    @accumulate(lambda x: [Conjunction(tuple(x))])
-    def min_gen(self, inst):
-        for i in range(len(self)):
-            if self[i] is None:
-                yield inst[i]
-            elif is_wildcard(self[i]) or self[i] == inst[i]:
-                yield self[i]
+class A:
+    @accumulate(lambda ys: list(B(ys)))
+    def foo(self, x):
+        for i in range(len(x)):
+            if pred1(x):
+                yield x.bar(i)
+            elif pred2(x):
+                yield x
             else:
-                yield Wildcard
+                yield None
